@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do Web App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #181a2f;
+      color: white;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .task-form input, .task-form button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 4px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .task-form input[type="text"] {
+      width: 40%;
+    }
+
+    .task-form input[type="datetime-local"] {
+      width: 25%;
+    }
+
+    .task-form button {
+      background-color: #5c6bc0;
+      color: white;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #2c2f48;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .actions button {
+      margin-left: 10px;
+      background-color: #3949ab;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .actions button.delete {
+      background-color: #e53935;
+    }
+
+    .actions button.edit {
+      background-color: #fbc02d;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To-Do Web App</h1>
+
+  <div class="task-form">
+    <input type="text" id="taskInput" placeholder="Enter your task">
+    <input type="datetime-local" id="taskDateTime">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    let tasks = [];
+
+    function addTask() {
+      const taskText = document.getElementById("taskInput").value.trim();
+      const taskDateTime = document.getElementById("taskDateTime").value;
+
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
+
+      tasks.push({
+        text: taskText,
+        datetime: taskDateTime,
+        completed: false
+      });
+
+      document.getElementById("taskInput").value = "";
+      document.getElementById("taskDateTime").value = "";
+
+      renderTasks();
+    }
+
+    function renderTasks() {
+      const taskList = document.getElementById("taskList");
+      taskList.innerHTML = "";
+
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+
+        const taskContent = document.createElement("span");
+        taskContent.innerHTML = `<strong>${task.text}</strong> ${task.datetime ? `<br><small>${task.datetime}</small>` : ''}`;
+        if (task.completed) taskContent.classList.add("completed");
+        taskContent.onclick = () => toggleComplete(index);
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Delete";
+        deleteBtn.className = "delete";
+        deleteBtn.onclick = () => deleteTask(index);
+
+        const editBtn = document.createElement("button");
+        editBtn.innerText = "Edit";
+        editBtn.className = "edit";
+        editBtn.onclick = () => editTask(index);
+
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+
+        li.appendChild(taskContent);
+        li.appendChild(actions);
+
+        taskList.appendChild(li);
+      });
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+    function editTask(index) {
+      const newText = prompt("Edit your task:", tasks[index].text);
+      if (newText !== null && newText.trim() !== "") {
+        tasks[index].text = newText.trim();
+        renderTasks();
+      }
+    }
+
+    function toggleComplete(index) {
+      tasks[index].completed = !tasks[index].completed;
+      renderTasks();
+    }
+  </script>
+</body>
+</html>

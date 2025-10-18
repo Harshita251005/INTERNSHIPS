@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stopwatch Web Application</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: #111827;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      color: #00e0c6;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .stopwatch {
+      background: #1f2937;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      width: 320px;
+    }
+
+    .time {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: #e5e7eb;
+      letter-spacing: 2px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 10px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .start {
+      background-color: #00e0c6;
+      color: #111827;
+    }
+
+    .pause {
+      background-color: #facc15;
+      color: #111827;
+    }
+
+    .reset {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .lap {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 20px;
+      max-height: 150px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    ul li {
+      background: #374151;
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      color: #d1d5db;
+      font-size: 0.9rem;
+    }
+
+    ul::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ul::-webkit-scrollbar-thumb {
+      background: #00e0c6;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stopwatch Web Application</h1>
+
+  <div class="stopwatch">
+    <div class="time" id="display">00:00:00</div>
+
+    <div class="buttons">
+      <button class="start" id="startBtn">Start</button>
+      <button class="pause" id="pauseBtn">Pause</button>
+      <button class="reset" id="resetBtn">Reset</button>
+    </div>
+
+    <button class="lap" id="lapBtn">Lap</button>
+
+    <ul id="laps"></ul>
+  </div>
+
+  <script>
+    let startTime = 0;
+    let elapsedTime = 0;
+    let timerInterval;
+    const display = document.getElementById("display");
+    const laps = document.getElementById("laps");
+
+    function timeToString(time) {
+      let diffInHrs = time / 3600000;
+      let hh = Math.floor(diffInHrs);
+
+      let diffInMin = (diffInHrs - hh) * 60;
+      let mm = Math.floor(diffInMin);
+
+      let diffInSec = (diffInMin - mm) * 60;
+      let ss = Math.floor(diffInSec);
+
+      let formattedHH = hh.toString().padStart(2, "0");
+      let formattedMM = mm.toString().padStart(2, "0");
+      let formattedSS = ss.toString().padStart(2, "0");
+
+      return `${formattedHH}:${formattedMM}:${formattedSS}`;
+    }
+
+    function startTimer() {
+      startTime = Date.now() - elapsedTime;
+      timerInterval = setInterval(function printTime() {
+        elapsedTime = Date.now() - startTime;
+        display.innerHTML = timeToString(elapsedTime);
+      }, 1000);
+      toggleButtons("START");
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      toggleButtons("PAUSE");
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      display.innerHTML = "00:00:00";
+      elapsedTime = 0;
+      laps.innerHTML = "";
+      toggleButtons("RESET");
+    }
+
+    function lapTime() {
+      if (elapsedTime > 0) {
+        const li = document.createElement("li");
+        li.innerText = "Lap " + (laps.children.length + 1) + ": " + timeToString(elapsedTime);
+        laps.appendChild(li);
+      }
+    }
+
+    function toggleButtons(state) {
+      if (state === "START") {
+        document.getElementById("startBtn").disabled = true;
+        document.getElementById("pauseBtn").disabled = false;
+      } else if (state === "PAUSE") {
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("pauseBtn").disabled = true;
+      } else if (state === "RESET") {
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("pauseBtn").disabled = true;
+      }
+    }
+
+    document.getElementById("startBtn").addEventListener("click", startTimer);
+    document.getElementById("pauseBtn").addEventListener("click", pauseTimer);
+    document.getElementById("resetBtn").addEventListener("click", resetTimer);
+    document.getElementById("lapBtn").addEventListener("click", lapTime);
+
+    toggleButtons("RESET");
+  </script>
+</body>
+</html>
