@@ -264,7 +264,7 @@ class Theater {
 }
 
 // Main class with menu-driven interface
-public class Main {
+public class srs {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Map<Category, Double> priceMap = new HashMap<>();
