@@ -12,8 +12,7 @@
 
 // Persistent data storage in CSV files.
 
-// Clean, menu-driven console interface.
-
+// Clean, menu-driven console interface.
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -265,7 +264,7 @@ class Theater {
 }
 
 // Main class with menu-driven interface
-public class seat_reservation_system {
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Map<Category, Double> priceMap = new HashMap<>();
