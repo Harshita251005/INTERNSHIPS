@@ -7,11 +7,15 @@ const {
   updateCategory,
   deleteCategory
 } = require('../controllers/categoryController');
+const { protect, isShopkeeperOrAdmin } = require('../middleware/authMiddleware');
 
+// Public routes
 router.get('/', getCategories);
 router.get('/:id', getCategoryById);
-router.post('/', createCategory);
-router.put('/:id', updateCategory);
-router.delete('/:id', deleteCategory);
+
+// Protected routes - only shopkeepers/admins can manage categories
+router.post('/', protect, isShopkeeperOrAdmin, createCategory);
+router.put('/:id', protect, isShopkeeperOrAdmin, updateCategory);
+router.delete('/:id', protect, isShopkeeperOrAdmin, deleteCategory);
 
 module.exports = router;

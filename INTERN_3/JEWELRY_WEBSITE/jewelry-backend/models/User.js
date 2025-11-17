@@ -4,7 +4,23 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false }
+  role: { 
+    type: String, 
+    enum: ['customer', 'shopkeeper', 'admin'], 
+    default: 'customer' 
+  },
+  isAdmin: { type: Boolean, default: false },
+  phone: { type: String },
+  address: {
+    address: String,
+    city: String,
+    postalCode: String,
+    country: String
+  },
+  avatarUrl: { type: String },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('User', UserSchema);
