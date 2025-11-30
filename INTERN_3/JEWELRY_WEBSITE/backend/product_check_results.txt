@@ -1,0 +1,34 @@
+Connected to MongoDB
+
+Found 5 products:
+
+Elegant Diamond Ring:
+  ID: 692bbcd1e493d590ce392906
+  Category: 692bbaaae493d590ce3925e8
+  Category Type: object
+  Is ObjectId: true
+
+Royal Gold Necklace:
+  ID: 692bbd1be493d590ce392910
+  Category: 692bbaede493d590ce392602
+  Category Type: object
+  Is ObjectId: true
+
+Silver Pearl Stud Earrings:
+  ID: 692bbd76e493d590ce39291a
+  Category: 692bbb0ce493d590ce39260f
+  Category Type: object
+  Is ObjectId: true
+
+Classic Gold Bangle:
+  ID: 692bbe12e493d590ce3929fd
+  Category: 692bbb7fe493d590ce392629
+  Category Type: object
+  Is ObjectId: true
+
+Trendy Silver Anklet:
+  ID: 692bbe60e493d590ce392a07
+  Category: 692bbbb7e493d590ce39263c
+  Category Type: object
+  Is ObjectId: true
+

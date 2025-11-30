@@ -1,0 +1,31 @@
+Checking category references...
+
+Found 5 categories in database:
+  - Rings (692bbaaae493d590ce3925e8)
+  - Necklaces (692bbaede493d590ce392602)
+  - Earrings (692bbb0ce493d590ce39260f)
+  - Bracelets (692bbb7fe493d590ce392629)
+  - Anklets (692bbbb7e493d590ce39263c)
+
+Checking 5 products:
+
+Elegant Diamond Ring:
+  Category ID: 692bbaaae493d590ce3925e8
+  Category Exists: YES ✅
+
+Royal Gold Necklace:
+  Category ID: 692bbaede493d590ce392602
+  Category Exists: YES ✅
+
+Silver Pearl Stud Earrings:
+  Category ID: 692bbb0ce493d590ce39260f
+  Category Exists: YES ✅
+
+Classic Gold Bangle:
+  Category ID: 692bbb7fe493d590ce392629
+  Category Exists: YES ✅
+
+Trendy Silver Anklet:
+  Category ID: 692bbbb7e493d590ce39263c
+  Category Exists: YES ✅
+
